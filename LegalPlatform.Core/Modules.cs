@@ -1,6 +1,6 @@
 ﻿namespace LegalPlatform.Core
 {
-    public class Modules
+    public static class Modules
     {
 
     }
