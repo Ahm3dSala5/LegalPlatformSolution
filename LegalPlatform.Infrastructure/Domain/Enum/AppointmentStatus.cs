@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LegalPlatform.Infrastructure.Domain.Enum
 {
-    internal enum AppointmentStatus
+    public enum AppointmentStatus
     {
         Pending,
         Confirmed,

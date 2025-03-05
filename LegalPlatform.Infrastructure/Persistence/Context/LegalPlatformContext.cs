@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 [assembly: InternalsVisibleTo("LegalPlatform.API")]
 namespace LegalPlatform.Infrastructure.Persistence.Context
 {
-    internal class LegalPlatformContext : IdentityDbContext<LegalUser,LegalRole,Guid>
+    public class LegalPlatformContext : IdentityDbContext<LegalUser,LegalRole,Guid>
     {
         public LegalPlatformContext(DbContextOptions<LegalPlatformContext> options) : base(options)
         {
@@ -20,12 +20,9 @@ namespace LegalPlatform.Infrastructure.Persistence.Context
         }
 
         public DbSet<Chat> Chats { set; get; }
-        public DbSet<Client> Clients { set; get; }
-        public DbSet<Lawyer> Lawyers { set; get; }
-        public DbSet<Review> Reviews { set; get; }  
         public DbSet<LegalUser> Users { set; get; }
         public DbSet<Payment> Payments { set; get; }
-        public DbSet<Document> Documents { set; get; }  
+        public DbSet<Articale> Documents { set; get; }  
         public DbSet<Appointment> Appointments { set; get; }
 
         protected override void OnModelCreating(ModelBuilder builder)

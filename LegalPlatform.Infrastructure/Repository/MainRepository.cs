@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LegalPlatform.Infrastructure.Repository
 {
-    internal class MainRepository<TEntity> : IMainRepository<TEntity> where TEntity : class
+    public class MainRepository<TEntity> : IMainRepository<TEntity> where TEntity : class
     {
         private readonly LegalPlatformContext _context;
         private readonly DbSet<TEntity> _entity;
@@ -18,29 +18,43 @@ namespace LegalPlatform.Infrastructure.Repository
             _entity = _context.Set<TEntity>();
         }
 
-        public ValueTask<string> CreateAsync(TEntity entity)
+        public async ValueTask<string> CreateAsync(TEntity entity)
         {
-            throw new NotImplementedException();
+            await _entity.AddAsync(entity);
+            var addingResult = await  _context.SaveChangesAsync();
+            return addingResult > 0 ? "Successfully" : "Invalid";
         }
 
-        public ValueTask<string> DeleteAsync(int id)
+        public async ValueTask<string> DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await _entity.FindAsync(id);
+            if (entity == null)
+                return "NotFound";
+
+            _entity.Remove(entity);
+            var removeResult = await _context.SaveChangesAsync();
+            return removeResult > 0 ? "Successfully" : "Invalid";
         }
 
-        public ValueTask<ICollection<TEntity>> GetAllAsync()
+        public async ValueTask<ICollection<TEntity>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _entity.ToListAsync();
         }
 
-        public ValueTask<TEntity> GetAsync(int id)
+        public async ValueTask<TEntity> GetAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _entity.FindAsync(id);
         }
 
-        public ValueTask<string> UpdateAsync(TEntity entity, int id)
+        public async ValueTask<string> UpdateAsync(TEntity entity, int id)
         {
-            throw new NotImplementedException();
+            var oldEntity = await _entity.FindAsync(id);
+            if (entity == null)
+                return "NotFound";
+
+            _entity.Entry(oldEntity).CurrentValues.SetValues(entity);
+            var updateResult = await _context.SaveChangesAsync();
+            return updateResult > 0 ? "Successfully" : "Invalid";
         }
     }
 }

@@ -2,10 +2,9 @@
 
 namespace LegalPlatform.Infrastructure.Domain.Entity.Business
 {
-    internal sealed class Review : BaseEntity<int>
+    public sealed class Comment :BaseEntity<int>
     {
-        public string Content { set; get; }
-        public double Rate { set; get; }
         public DateTime AddedAt { set; get; }
+        public string Content { set; get; }
     }
 }

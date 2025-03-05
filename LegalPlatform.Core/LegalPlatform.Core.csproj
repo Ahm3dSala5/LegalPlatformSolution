@@ -6,4 +6,22 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="MediatR" Version="12.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Authentications\Command\Validations\" />
+    <Folder Include="Features\Authorization\Command\Validations\" />
+    <Folder Include="Features\Authorization\Query\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LegalPlatform.Infrastructure\LegalPlatform.Infrastructure.csproj" />
+    <ProjectReference Include="..\LegalPlatform.Service\LegalPlatform.Service.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -2,7 +2,7 @@
 
 namespace LegalPlatform.Infrastructure.Domain.Entity.Business
 {
-    internal sealed class Document : BaseEntity<Guid>
+    public sealed class Articale : BaseEntity<Guid>
     {
         public string Name { set; get; }
         public byte[] Content { set; get; }

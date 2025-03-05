@@ -2,7 +2,7 @@
 
 namespace LegalPlatform.Infrastructure.Domain.Entity.Security
 {
-    internal class LegalRole : IdentityRole<Guid>
+    public class LegalRole : IdentityRole<Guid>
     {
 
     }

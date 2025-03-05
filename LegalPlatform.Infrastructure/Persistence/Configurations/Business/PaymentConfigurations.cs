@@ -14,6 +14,7 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
         public void Configure(EntityTypeBuilder<Payment> builder)
         {
             builder.ToTable("Payment").HasKey(x=>x.Id);
+
         }
     }
 

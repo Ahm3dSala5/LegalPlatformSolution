@@ -9,6 +9,8 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
         public void Configure(EntityTypeBuilder<Appointment> builder)
         {
             builder.ToTable("Appointment").HasKey(x => x.Id);
+
+
         }
     }
 

@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
 {
-    internal class DocumentConfigurations : IEntityTypeConfiguration<Document>
+    internal class CommentConfigurations : IEntityTypeConfiguration<Comment>
     {
-        public void Configure(EntityTypeBuilder<Document> builder)
+        public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.ToTable("Document").HasKey(x => x.Id);
+            builder.ToTable("Review").HasKey(x => x.Id);
         }
     }
-
 }

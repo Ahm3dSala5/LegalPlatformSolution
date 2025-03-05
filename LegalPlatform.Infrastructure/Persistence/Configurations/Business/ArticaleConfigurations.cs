@@ -4,13 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
 {
-    internal class LawyerConfigurations : IEntityTypeConfiguration<Lawyer>
+    internal class ArticaleConfigurations : IEntityTypeConfiguration<Articale>
     {
-        public void Configure(EntityTypeBuilder<Lawyer> builder)
+        public void Configure(EntityTypeBuilder<Articale> builder)
         {
-            builder.ToTable("Lawyer").HasKey(x => x.Id);
+            builder.ToTable("Articale").HasKey(x => x.Id);
         }
     }
-
 
 }

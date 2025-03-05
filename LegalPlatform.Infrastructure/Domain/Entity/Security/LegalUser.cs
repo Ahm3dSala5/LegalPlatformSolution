@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LegalPlatform.Infrastructure.Domain.Entity.Security
 {
-    internal class LegalUser : IdentityUser<Guid>
+    public class LegalUser : IdentityUser<Guid>
     {
         public string Address { set; get; }
     }

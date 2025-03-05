@@ -1,7 +1,4 @@
-﻿using LegalPlatform.Infrastructure.Persistence.Context;
-using LegalPlatform.Infrastructure.Repository;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using LegalPlatform.Infrastructure.Repository;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LegalPlatform.Infrastructure
