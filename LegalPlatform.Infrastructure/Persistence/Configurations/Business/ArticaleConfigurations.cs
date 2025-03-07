@@ -9,6 +9,12 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
         public void Configure(EntityTypeBuilder<Articale> builder)
         {
             builder.ToTable("Articale").HasKey(x => x.Id);
+
+            builder.HasOne(x => x.User)
+              .WithMany(x => x.Articales)
+              .HasForeignKey(x => x.UserId)
+              .OnDelete(DeleteBehavior.Restrict)
+              .IsRequired(true);
         }
     }
 

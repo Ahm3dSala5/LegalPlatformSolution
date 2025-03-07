@@ -19,11 +19,11 @@ namespace LegalPlatform.Infrastructure.Persistence.Context
 
         }
 
-        public DbSet<Chat> Chats { set; get; }
         public DbSet<LegalUser> Users { set; get; }
         public DbSet<Payment> Payments { set; get; }
-        public DbSet<Articale> Documents { set; get; }  
+        public DbSet<Articale> Articale { set; get; }  
         public DbSet<Appointment> Appointments { set; get; }
+        public DbSet<Comment> Comments { set; get; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

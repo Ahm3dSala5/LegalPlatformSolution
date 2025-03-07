@@ -9,6 +9,8 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Security
         public void Configure(EntityTypeBuilder<LegalUser> builder)
         {
             builder.ToTable("User").HasKey(x => x.Id);
+
+
         }
     }
 }

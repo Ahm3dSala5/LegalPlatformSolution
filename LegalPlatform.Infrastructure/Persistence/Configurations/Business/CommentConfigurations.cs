@@ -8,7 +8,19 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
     {
         public void Configure(EntityTypeBuilder<Comment> builder)
         {
-            builder.ToTable("Review").HasKey(x => x.Id);
+            builder.ToTable("Comment").HasKey(x => x.Id);
+
+            builder.HasOne(x => x.User)
+              .WithMany(x => x.Comments)
+              .HasForeignKey(x => x.UserId)
+              .OnDelete(DeleteBehavior.Restrict)
+              .IsRequired(true);
+
+            builder.HasOne(x => x.Articale)
+             .WithMany(x => x.Comments)
+             .HasForeignKey(x => x.ArticaleId)
+             .OnDelete(DeleteBehavior.Restrict)
+             .IsRequired(true);
         }
     }
 }

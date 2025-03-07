@@ -15,6 +15,11 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
         {
             builder.ToTable("Payment").HasKey(x=>x.Id);
 
+            builder.HasOne(x => x.User)
+              .WithMany(x => x.Payments)
+              .HasForeignKey(x => x.UserId)
+              .OnDelete(DeleteBehavior.Restrict)
+              .IsRequired(true);
         }
     }
 

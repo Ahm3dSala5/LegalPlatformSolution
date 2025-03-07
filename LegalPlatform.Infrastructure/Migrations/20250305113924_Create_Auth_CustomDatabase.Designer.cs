@@ -4,6 +4,7 @@ using LegalPlatform.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegalPlatform.Infrastructure.Migrations
 {
     [DbContext(typeof(LegalPlatformContext))]
-    partial class LegalPlatformContextModelSnapshot : ModelSnapshot
+    [Migration("20250305113924_Create_Auth_CustomDatabase")]
+    partial class Create_Auth_CustomDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +96,6 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.Property<DateTime>("AddedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("ArticaleId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Content")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -104,8 +104,6 @@ namespace LegalPlatform.Infrastructure.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ArticaleId");
 
                     b.HasIndex("UserId");
 
@@ -330,19 +328,11 @@ namespace LegalPlatform.Infrastructure.Migrations
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Comment", b =>
                 {
-                    b.HasOne("LegalPlatform.Infrastructure.Domain.Entity.Business.Articale", "Articale")
-                        .WithMany("Comments")
-                        .HasForeignKey("ArticaleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Articale");
 
                     b.Navigation("User");
                 });
@@ -356,11 +346,6 @@ namespace LegalPlatform.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Articale", b =>
-                {
-                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalUser", b =>
