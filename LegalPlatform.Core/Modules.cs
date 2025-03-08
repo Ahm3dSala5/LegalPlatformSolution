@@ -1,4 +1,6 @@
 ﻿
+using System.Reflection;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace LegalPlatform.Core
@@ -7,8 +9,19 @@ namespace LegalPlatform.Core
     {
         public static void AddCoreModules(this IServiceCollection service)
         {
-            // add password settings
-            //service.Configure
+            service.AddAutoMapper(typeof(Modules).Assembly);
+            service.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+            service.Configure<IdentityOptions>(PasswordOptions =>
+            {
+                PasswordOptions.Password.RequireNonAlphanumeric = false;
+                PasswordOptions.Password.RequiredLength = 8;
+                PasswordOptions.Password.RequiredUniqueChars = 2;
+                PasswordOptions.Password.RequireDigit = false;
+                PasswordOptions.Password.RequireUppercase = false;
+                PasswordOptions.Password.RequireLowercase = false;
+            });
+
         }
     }
 }

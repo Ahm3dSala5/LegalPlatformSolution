@@ -7,7 +7,6 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
     {
         public string Content { set; get; }
         public DateTime UploadedAt { set; get; }
-
         public LegalUser User { set; get; }
         public Guid UserId { set; get; }
         public ICollection<Comment> Comments { set; get; } = new List<Comment>();

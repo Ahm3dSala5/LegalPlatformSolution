@@ -15,9 +15,11 @@ namespace LegalPlatform.Core.Mapping.Articales
         public void GetArticaleQueryMapping()
         {
             CreateMap<ArticaleModel, Articale>().
+                ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Articale_Id)).
                 ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.Articale_UserId)).
                 ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Articale_Content)).
-                ForMember(dest => dest.UploadedAt, opt => opt.MapFrom(src => src.Articale_UploadedAt)).ReverseMap();
+                ForMember(dest => dest.UploadedAt, opt => opt.MapFrom(src => src.Articale_UploadedAt))
+                .ReverseMap();
         }
     }
 }

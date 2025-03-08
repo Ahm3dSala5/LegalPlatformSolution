@@ -1,19 +1,22 @@
 ﻿using LegalPlatform.Infrastructure.Persistence.Context;
 using LegalPlatform.Service.Abstraction.Business;
 using LegalPlatform.Service.Implementation.Business;
+using Microsoft.Extensions.Configuration;
 
 namespace LegalPlatform.Service.UnitOfWorks
 {
     public class UnitOfWork : IUnitOfWork
     {
         private readonly LegalPlatformContext _context;
-        public UnitOfWork(LegalPlatformContext context)
+        private readonly IConfiguration _config;
+        public UnitOfWork(LegalPlatformContext context, IConfiguration config)
         {
             this._context = context;
-            this.CommentService = new CommentService(_context);
-            this.AppointmentService = new AppointmentService(_context);
-            this.ArticaleService = new ArticaleService(_context);
-            this.paymentService = new PaymentService(_context);
+            this.CommentService = new CommentService(_context, config);
+            this.AppointmentService = new AppointmentService(_context, config);
+            this.ArticaleService = new ArticaleService(_context, config);
+            this.paymentService = new PaymentService(_context, config);
+            _config = config;
         }
 
         public ICommentService CommentService { get; private set; }

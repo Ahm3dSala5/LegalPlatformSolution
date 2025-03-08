@@ -25,7 +25,7 @@ namespace LegalPlatform.Core.Features.Articales.Query.Handler
             (GetAllArticalesQuery request, CancellationToken cancellationToken)
         {
             var articales = await _unitOfWork.ArticaleService.GetAllAsync();
-            if (articales == null)
+            if (articales.Count() == 0)
                 return NotFound<ICollection<ArticaleModel>>(_message: "No Articales Found");
 
             var articalesMapped = _mapper.Map<ICollection<ArticaleModel>>(articales);
@@ -39,7 +39,7 @@ namespace LegalPlatform.Core.Features.Articales.Query.Handler
            if(request.Id == Guid.Empty)
                 return BadRequest<ArticaleModel>(_message: "Invalid Articale Id");
 
-            var articale = _unitOfWork.ArticaleService.GetAsync(request.Id);
+            var articale = await _unitOfWork.ArticaleService.GetAsync(request.Id);
             if (articale == null)
                 return NotFound<ArticaleModel>(_message: "Articale Not Found or Invalid Articale Id");
 

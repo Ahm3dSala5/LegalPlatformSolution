@@ -48,6 +48,7 @@ namespace LegalPlatform.Core.Features.Articales.Command.Handler
                 return BadRequest<string>(_message: "Invalid Articale Data");
 
             var articaleMapped = _mapper.Map<Articale>(request.Articale);
+            articaleMapped.UploadedAt = DateTime.Now;
 
             var updateOperation = await _unitOfWork
                 .ArticaleService.UpdateAsync(articaleMapped,request.Articale.Articale_Id);

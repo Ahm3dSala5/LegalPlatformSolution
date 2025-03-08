@@ -1,6 +1,8 @@
+using LegalPlatform.Core;
 using LegalPlatform.Infrastructure;
 using LegalPlatform.Infrastructure.Domain.Entity.Security;
 using LegalPlatform.Infrastructure.Persistence.Context;
+using LegalPlatform.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +19,8 @@ builder.Services.AddSwaggerGen();
 
 // add app moudles 
 builder.Services.AddInfrastructureModules();
+builder.Services.AddCoreModules();
+builder.Services.AddServiceModules();
 
 
 builder.Services.AddIdentity<LegalUser, LegalRole>().

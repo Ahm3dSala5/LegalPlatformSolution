@@ -12,6 +12,7 @@ namespace LegalPlatform.Service
         public static void AddServiceModules(this IServiceCollection service)
         {
             service.AddTransient<IUnitOfWork, UnitOfWork>();
+            service.AddTransient<IMailService, MailService>();
             service.AddTransient<ICommentService,CommentService>();
             service.AddTransient<IPaymentService,PaymentService>();
             service.AddTransient<IArticaleService,ArticaleService>();

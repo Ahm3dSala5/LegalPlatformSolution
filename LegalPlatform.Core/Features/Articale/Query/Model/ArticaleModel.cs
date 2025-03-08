@@ -9,6 +9,7 @@ namespace LegalPlatform.Core.Features.Articales.Query.Model
 {
     public class ArticaleModel
     {
+        public Guid Articale_Id { set; get; }
         public string Articale_Content { set; get; }
         public DateTime Articale_UploadedAt { set; get; }
         public Guid Articale_UserId { set; get; }

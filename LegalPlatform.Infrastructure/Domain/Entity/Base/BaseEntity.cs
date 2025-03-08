@@ -8,6 +8,6 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Base
 {
     public abstract class BaseEntity <TKey>
     {
-        public int Id { set; get; }
+        public TKey Id { set; get; }
     }
 }

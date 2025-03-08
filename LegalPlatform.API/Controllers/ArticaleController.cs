@@ -38,10 +38,10 @@ namespace LegalPlatform.API.Controllers
             return HandledResult(updateCommand);
         }
 
-        [HttpDelete("Delete/{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        [HttpDelete("Delete/{Id}")]
+        public async Task<IActionResult> Delete(Guid Id)
         {
-            var deleteCommand = await Mediator.Send(new DeleteArticalesCommand(id));
+            var deleteCommand = await Mediator.Send(new DeleteArticalesCommand(Id));
             return HandledResult(deleteCommand);
         }
     }

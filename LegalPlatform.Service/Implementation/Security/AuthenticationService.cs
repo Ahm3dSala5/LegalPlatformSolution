@@ -18,7 +18,7 @@ namespace GraduationProjectStore.Service.Implementation.Security
 
         public AuthenticationService
             (UserManager<LegalUser> user, IMailService mail, SignInManager<LegalUser> signInManager,
-            IConfiguration config, LegalPlatformContext context) :base(context)
+            IConfiguration config, LegalPlatformContext context) :base(context,config)
         {
             this._userManager = user;
             this._mail = mail;

@@ -2,12 +2,13 @@
 using LegalPlatform.Infrastructure.Persistence.Context;
 using LegalPlatform.Infrastructure.Repository;
 using LegalPlatform.Service.Abstraction.Business;
+using Microsoft.Extensions.Configuration;
 
 namespace LegalPlatform.Service.Implementation.Business
 {
     public class ArticaleService : MainRepository<Articale>, IArticaleService
     {
-        public ArticaleService(LegalPlatformContext context) : base(context)
+        public ArticaleService(LegalPlatformContext context, IConfiguration config) : base(context, config)
         {
         }
     }
