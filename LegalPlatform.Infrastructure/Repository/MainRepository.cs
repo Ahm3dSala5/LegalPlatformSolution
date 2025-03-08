@@ -25,7 +25,7 @@ namespace LegalPlatform.Infrastructure.Repository
             return addingResult > 0 ? "Successfully" : "Invalid";
         }
 
-        public async ValueTask<string> DeleteAsync(int id)
+        public async ValueTask<string> DeleteAsync(Guid id)
         {
             var entity = await _entity.FindAsync(id);
             if (entity == null)
@@ -41,12 +41,12 @@ namespace LegalPlatform.Infrastructure.Repository
             return await _entity.ToListAsync();
         }
 
-        public async ValueTask<TEntity> GetAsync(int id)
+        public async ValueTask<TEntity> GetAsync(Guid id)
         {
             return await _entity.FindAsync(id);
         }
 
-        public async ValueTask<string> UpdateAsync(TEntity entity, int id)
+        public async ValueTask<string> UpdateAsync(TEntity entity, Guid id)
         {
             var oldEntity = await _entity.FindAsync(id);
             if (entity == null)
