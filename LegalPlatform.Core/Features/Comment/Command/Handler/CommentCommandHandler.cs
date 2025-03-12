@@ -1,9 +1,4 @@
-﻿using System; 
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using GraduationProjectStore.Core.ResultHandlers;
 using LegalPlatform.Core.Features.Comments.Command.Request;
 using LegalPlatform.Infrastructure.Domain.Entity.Business;
@@ -18,6 +13,7 @@ namespace LegalPlatform.Core.Features.Comments.Command.Handler
          IRequestHandler<EditCommentCommand, Result<string>>,
          IRequestHandler<DeleteCommentCommand, Result<string>>
     {
+
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
         public CommentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
@@ -25,6 +21,7 @@ namespace LegalPlatform.Core.Features.Comments.Command.Handler
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
         }
+
         public async Task<Result<string>> Handle
             (EditCommentCommand request, CancellationToken cancellationToken)
         {

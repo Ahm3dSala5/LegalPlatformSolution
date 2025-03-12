@@ -10,6 +10,6 @@ namespace LegalPlatform.Infrastructure.Domain.Enum
     {
         Pending,
         Confirmed,
-        Completed
+        Completed 
     }
 }
