@@ -21,7 +21,6 @@ namespace LegalPlatform.Core
                 PasswordOptions.Password.RequireUppercase = false;
                 PasswordOptions.Password.RequireLowercase = false;
             });
-
         }
     }
 }

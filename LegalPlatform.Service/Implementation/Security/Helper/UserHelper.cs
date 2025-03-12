@@ -28,11 +28,11 @@ namespace GraduationProjectStore.Service.Implementation.Business.Helper
 
             var emailMessage = $@"
                 <h1>Hello {user.UserName},</h1>
-                <p>Thank you for registering with Graduation Project Store.</p>
+                <p>Thank you for registering with Legal Ease.</p>
                 <p>Your verification code is:</p>
                 <h2>{code}</h2>
                 <p>If you did not request this, please ignore this email.</p>
-                <p>Thank you,<br>Ahmed Salah Team</p>
+                <p>Thank you,<br>Legal Platform Team</p>
             ";
 
             return await mail.SendMail(user.Email,"Confirmation Code", emailMessage);
