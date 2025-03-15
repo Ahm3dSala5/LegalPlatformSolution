@@ -3,11 +3,13 @@ using LegalPlatform.Core.Features.Articales.Command.Request;
 using LegalPlatform.Core.Features.Articales.Query.Request;
 using LegalPlatform.Infrastructure.Domain.DTOs.Articale;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace LegalPlatform.API.Controllers
 {
     [ApiController]
     [Route("api/articale")]
+    [SwaggerTag("3")]
     public class ArticaleController : Base
     {
         [HttpPost("Write")]

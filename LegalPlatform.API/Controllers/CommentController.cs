@@ -3,11 +3,12 @@ using LegalPlatform.Core.Features.Comments.Command.Request;
 using LegalPlatform.Core.Features.Comments.Query.Request;
 using LegalPlatform.Infrastructure.Domain.DTOs.Comments;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace LegalPlatform.API.Controllers
 {
     [ApiController]
-    [Route("api/comment")]
+    [Route("api/Comment")]
     public class CommentController : Base
     {
         [HttpPost("Write")]

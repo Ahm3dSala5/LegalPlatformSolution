@@ -4,6 +4,7 @@ using LegalPlatform.Core.Features.Appointments.Command.Request;
 using LegalPlatform.Core.Features.Appointments.Query.Request;
 using LegalPlatform.Infrastructure.Domain.DTOs.NewFolder;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace LegalPlatform.API.Controllers
 {

@@ -19,7 +19,7 @@ namespace LegalPlatform.Service.Implementation.Business
 
         public async ValueTask<string> EditPaymentAsync(EditPaymentDTO payment)
         {
-            var _payment = await _context.Payments.SingleOrDefaultAsync(x=>x.Id == payment.Id);
+            var _payment = await _context.Payments.SingleOrDefaultAsync(x => x.Id == payment.Id);
             if (_payment == null)
                 return "PaymentNotFound";
 
@@ -31,6 +31,7 @@ namespace LegalPlatform.Service.Implementation.Business
             if (sender == null)
                 return "SenderNotFound";
 
+            int transactionOperation = 0;
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 if (sender.Balance < payment.Amount)
@@ -39,9 +40,20 @@ namespace LegalPlatform.Service.Implementation.Business
                 reciever.Balance += payment.Amount;
                 sender.Balance -= payment.Amount;
                 await transaction.CommitAsync();
+                transactionOperation = await _context.SaveChangesAsync();
+                if (transactionOperation > 0)
+                {
+                    Payment newPayment = new Payment()
+                    {
+                        Amount = payment.Amount,
+                        TO = payment.TO,
+                        From = payment.From
+                    };
+                    transactionOperation = 0;
+                    _context.Payments.Update(newPayment);
+                    transactionOperation = await _context.SaveChangesAsync();
+                }
             }
-
-            var transactionOperation = await _context.SaveChangesAsync();
             return transactionOperation > 0 ? "Successfully" : "Invalid";
         }
 
@@ -55,6 +67,7 @@ namespace LegalPlatform.Service.Implementation.Business
             if (sender == null)
                 return "SenderNotFound";
 
+            int transactionOperation = 0;
             using (var transaction = await _context.Database.BeginTransactionAsync())
             {
                 if (sender.Balance < payment.Amount)
@@ -63,10 +76,23 @@ namespace LegalPlatform.Service.Implementation.Business
                 reciever.Balance += payment.Amount;
                 sender.Balance -= payment.Amount;
                 await transaction.CommitAsync();
-            }
 
-            var transactionOperation = await _context.SaveChangesAsync();
-            return transactionOperation > 0 ? "Successfully" : "Invalid";
+                transactionOperation = await _context.SaveChangesAsync();
+                if (transactionOperation > 0)
+                {
+                    Payment _payment = new Payment()
+                    {
+                        Amount = payment.Amount,
+                        TO = payment.TO,
+                        From = payment.From
+                    };
+                    transactionOperation = 0;
+                    await _context.Payments.AddAsync(_payment);
+                    transactionOperation = await _context.SaveChangesAsync();
+                }
+
+                return transactionOperation > 0 ? "Successfully" : "Invalid";
+            }
         }
     }
 }

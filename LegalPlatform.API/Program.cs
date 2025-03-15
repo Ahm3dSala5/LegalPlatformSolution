@@ -5,6 +5,7 @@ using LegalPlatform.Infrastructure.Persistence.Context;
 using LegalPlatform.Service;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -26,6 +27,11 @@ builder.Services.AddServiceModules();
 builder.Services.AddIdentity<LegalUser, LegalRole>().
     AddEntityFrameworkStores<LegalPlatformContext>()
     .AddDefaultTokenProviders();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1",new OpenApiInfo { Title = "Legal Platform API"});
+});
 
 // add database 
 var connectionString = builder.Configuration.GetConnectionString("ConnectionString");

@@ -21,7 +21,7 @@ namespace LegalPlatform.Core.Features.Payments.Command.Handler
     {
         private readonly IMapper _mapper;
         private readonly IUnitOfWork _unitOfWork;
-        public CommentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        public PaymemtCommandHandler(IUnitOfWork unitOfWork, IMapper mapper)
         {
             this._unitOfWork = unitOfWork;
             this._mapper = mapper;
@@ -33,46 +33,53 @@ namespace LegalPlatform.Core.Features.Payments.Command.Handler
             if (request.Payment == null)
                 return BadRequest<string>(_message: "Invalid Data");
 
-            var editingOperation = await _unitOfWork.CommentService.EditCommentAsync(request.Comment);
-            if (editingOperation == "NotFound")
-                return NotFound<string>(_message: "Comment Not Found");
+            var startPayOperation = await _unitOfWork.paymentService.EditPaymentAsync(request.Payment);
+            if (startPayOperation == "PaymentNotFound")
+                return BadRequest<string>(_message: "Payment Not Found Or Invalid Payment Id");
 
-            if (editingOperation == "Unauhorized")
-                return BadRequest<string>(_message: "User Unauthorized To Edit Comment");
+            if (startPayOperation == "SenderNotFound")
+                return NotFound<string>(_message: "Sender Not Found");
 
-            return editingOperation == "Successfully" ? OK<string>(_message: "Comment Edited Successfully") :
+            if (startPayOperation == "RecieverNotFound")
+                return NotFound<string>(_message: "Reciever Not Found");
+
+            if (startPayOperation == "UserNotHaveEnoughMoney")
+                return NotFound<string>(_message: "Sender Not Have Enough Money");
+            
+            return startPayOperation == "Successfully" ? Created<string>(_message: "Payment Successfully") :
                 BadRequest<string>(_message: "Internal Server Error");
         }
 
-        public async Task<Result<string>> Handle(WriteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(CancelPaymetCommand request, CancellationToken cancellationToken)
         {
-            if (request.Comment == null)
+            if (request.Id == null)
                 return BadRequest<string>(_message: "Invalid Data");
 
-            var comment = new Comment()
-            {
-                Content = request.Comment.Content,
-                AddedAt = DateTime.UtcNow,
-                ArticaleId = request.Comment.ArticleId,
-                UserId = request.Comment.UserId
-            };
-            var writingOperation = await _unitOfWork.CommentService.CreateAsync(comment);
-            return writingOperation == "Successfully" ?
-                Created<string>(_message: "Comment Created Successfully") :
+            var deleteOperation = await _unitOfWork.paymentService.DeleteAsync(request.Id);
+            if (deleteOperation == "NotFound")
+                return NotFound<string>(_message:"Payment Not Found or Invalid Payment Id");
+
+            return deleteOperation == "Successfully" ?
+                OK<string>(_message: "Payment Deleted Successfully") :
                 BadRequest<string>(_message: "Internal Server Error");
         }
 
-        public async Task<Result<string>> Handle(DeleteCommentCommand request, CancellationToken cancellationToken)
+        public async Task<Result<string>> Handle(StartPaymentCommand request, CancellationToken cancellationToken)
         {
-            if (request.CommentId == Guid.Empty)
-                return BadRequest<string>(_message: "Invalid Comment Id");
+            var startPayOperation = await _unitOfWork.paymentService.StartPaymentAsync(request.Payment);
+            if (startPayOperation == "PaymentNotFound")
+                return BadRequest<string>(_message: "Payment Not Found Or Invalid Payment Id");
 
-            var deletingOperation = await _unitOfWork.CommentService.DeleteAsync(request.CommentId);
-            if (deletingOperation == "NotFound")
-                return NotFound<string>(_message: "Comment Not Found");
+            if (startPayOperation == "SenderNotFound")
+                return NotFound<string>(_message: "Sender Not Found");
 
-            return deletingOperation == "Successfully" ?
-                OK<string>(_message: "Comment Deleted Successfully") :
+            if (startPayOperation == "RecieverNotFound")
+                return NotFound<string>(_message: "Reciever Not Found");
+
+            if (startPayOperation == "UserNotHaveEnoughMoney")
+                return NotFound<string>(_message: "Sender Not Have Enough Money");
+
+            return startPayOperation == "Successfully" ? Created<string>(_message: "Payment Successfully") :
                 BadRequest<string>(_message: "Internal Server Error");
         }
     }

@@ -11,6 +11,11 @@ namespace LegalPlatform.Core.Features.Payments.Query.Request
 {
     public class GetPaymentByIdQuery : IRequest<Result<PaymentModel>>
     {
+        public GetPaymentByIdQuery(Guid id)
+        {
+            this.Id = id;
+        }
 
+        public Guid Id { get; }
     }
 }
