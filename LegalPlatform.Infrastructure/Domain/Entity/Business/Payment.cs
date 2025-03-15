@@ -12,7 +12,8 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
     {
         public DateTime PayAt { set; get; }
         public decimal Amount { set; get; }
-
+        public Guid From { set; get; }
+        public Guid TO { set; get; }
         public LegalUser User { set; get; }
         public Guid UserId { set; get; }
     }

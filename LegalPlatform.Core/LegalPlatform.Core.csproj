@@ -19,6 +19,8 @@
     <Folder Include="Features\Authorization\Command\Validations\" />
     <Folder Include="Features\Authorization\Query\" />
     <Folder Include="Features\Comment\Command\Validations\" />
+    <Folder Include="Features\Appointment\Command\Validations\" />
+    <Folder Include="Features\Payment\Command\Validations\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -11,6 +11,8 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Security
     public class LegalUser : IdentityUser<Guid>
     {
         public string Address { set; get; }
+
+        public decimal Balance { set; get; }
         public ICollection<Payment> Payments { set; get; } = new List<Payment>();
         public ICollection<Articale> Articales { set; get; } = new List<Articale>();
         public ICollection<Comment> Comments { set; get; } = new List<Comment>();
