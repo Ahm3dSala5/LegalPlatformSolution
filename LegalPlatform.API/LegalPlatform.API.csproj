@@ -22,8 +22,4 @@
     <ProjectReference Include="..\LegalPlatform.Infrastructure\LegalPlatform.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DataSeed\" />
-  </ItemGroup>
-
 </Project>

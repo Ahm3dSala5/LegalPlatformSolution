@@ -5,6 +5,7 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
 {
     public sealed class Articale : BaseEntity<Guid>
     {
+        public string Title { set; get; }
         public string Content { set; get; }
         public DateTime UploadedAt { set; get; }
         public LegalUser User { set; get; }

@@ -40,7 +40,7 @@ namespace LegalPlatform.Core.Features.Payment.Query.Handler
 
             var payment = await _unitOfWork.paymentService.GetAsync(request.Id);
             if (payment == null)
-                return NotFound<PaymentModel>(_message: "Comment Not Found");
+                return NotFound<PaymentModel>(_message: "Payment Not Found");
 
             var paymentModel = _mapper.Map<PaymentModel>(payment);
             return OK<PaymentModel>(_data: paymentModel);

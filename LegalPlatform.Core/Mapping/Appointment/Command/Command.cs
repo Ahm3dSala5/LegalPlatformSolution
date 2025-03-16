@@ -17,7 +17,7 @@ namespace LegalPlatform.Core.Mapping.Appointments
         {
             CreateMap<Appointment, StartAppointmentDTO>().
                 ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Note)).
-                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.AppointmentAt)).
+                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.Date)).
                 ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status)).ReverseMap();
         }
 
@@ -26,7 +26,7 @@ namespace LegalPlatform.Core.Mapping.Appointments
             CreateMap<Appointment, EditAppointmentDTO>().
                 ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id)).
                 ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Note)).
-                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.AppointmentAt)).
+                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.Date)).
                 ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status)).ReverseMap();
         }
     }

@@ -43,14 +43,9 @@ namespace LegalPlatform.Service.Implementation.Business
                 transactionOperation = await _context.SaveChangesAsync();
                 if (transactionOperation > 0)
                 {
-                    Payment newPayment = new Payment()
-                    {
-                        Amount = payment.Amount,
-                        TO = payment.TO,
-                        From = payment.From
-                    };
+                    _context.Entry(_payment).CurrentValues.SetValues(payment);
                     transactionOperation = 0;
-                    _context.Payments.Update(newPayment);
+                    _context.Payments.Update(_payment);
                     transactionOperation = await _context.SaveChangesAsync();
                 }
             }
@@ -83,8 +78,8 @@ namespace LegalPlatform.Service.Implementation.Business
                     Payment _payment = new Payment()
                     {
                         Amount = payment.Amount,
-                        TO = payment.TO,
-                        From = payment.From
+                        Reciever = payment.TO,
+                        Sender = payment.From
                     };
                     transactionOperation = 0;
                     await _context.Payments.AddAsync(_payment);

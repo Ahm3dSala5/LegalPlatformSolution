@@ -46,7 +46,7 @@ namespace LegalPlatform.Core.Features.Comments.Command.Handler
 
             var comment = new Comment()
             {
-                Content = request.Comment.Content,
+                Text = request.Comment.Content,
                 AddedAt = DateTime.UtcNow ,
                 ArticaleId = request.Comment.ArticleId,
                 UserId = request.Comment.UserId

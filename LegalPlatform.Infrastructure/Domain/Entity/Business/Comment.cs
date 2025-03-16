@@ -6,7 +6,7 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
     public sealed class Comment :BaseEntity<Guid>
     {
         public DateTime AddedAt { set; get; }
-        public string Content { set; get; }
+        public string Text { set; get; }
 
         public LegalUser User { set; get; }
         public Guid UserId { set; get; }

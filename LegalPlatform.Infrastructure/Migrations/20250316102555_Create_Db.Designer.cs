@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegalPlatform.Infrastructure.Migrations
 {
     [DbContext(typeof(LegalPlatformContext))]
-    [Migration("20250315153308_Add-Balance-Cloumn")]
-    partial class AddBalanceCloumn
+    [Migration("20250316102555_Create_Db")]
+    partial class Create_Db
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace LegalPlatform.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("AppointmentAt")
+                    b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Note")
@@ -60,6 +60,10 @@ namespace LegalPlatform.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("UploadedAt")
                         .HasColumnType("datetime2");
 
@@ -71,6 +75,24 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Articale", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ea8d2f13-fd5e-4adb-944c-998aabfd5985"),
+                            Content = "Content of legal insights article.",
+                            Title = "Legal Insights",
+                            UploadedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("bcccd887-9858-4f32-9c91-b4889035793f")
+                        },
+                        new
+                        {
+                            Id = new Guid("133dcaeb-a659-4ada-9869-42573fa02739"),
+                            Content = "Content of legal policies article.",
+                            Title = "Understanding Legal Policies",
+                            UploadedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Client", b =>
@@ -111,7 +133,7 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.Property<Guid>("ArticaleId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Content")
+                    b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -125,6 +147,24 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("80f9cdc3-ec47-465d-871e-706f87acfa7e"),
+                            AddedAt = new DateTime(2025, 3, 16, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6570),
+                            ArticaleId = new Guid("ea8d2f13-fd5e-4adb-944c-998aabfd5985"),
+                            Text = "Great article!",
+                            UserId = new Guid("bcccd887-9858-4f32-9c91-b4889035793f")
+                        },
+                        new
+                        {
+                            Id = new Guid("428937b9-2acc-46df-9a94-2ba10fefa89a"),
+                            AddedAt = new DateTime(2025, 3, 16, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6585),
+                            ArticaleId = new Guid("133dcaeb-a659-4ada-9869-42573fa02739"),
+                            Text = "Very informative!",
+                            UserId = new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Lawyer", b =>
@@ -182,13 +222,13 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<Guid>("From")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("PayAt")
+                    b.Property<DateTime>("PaymentDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("TO")
+                    b.Property<Guid>("Reciever")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("Sender")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("UserId")
@@ -199,6 +239,26 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Payment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("50aff29e-d272-4017-871f-d8c94230e7e2"),
+                            Amount = 250.00m,
+                            PaymentDate = new DateTime(2025, 3, 16, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6604),
+                            Reciever = new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2"),
+                            Sender = new Guid("bcccd887-9858-4f32-9c91-b4889035793f"),
+                            UserId = new Guid("bcccd887-9858-4f32-9c91-b4889035793f")
+                        },
+                        new
+                        {
+                            Id = new Guid("c1ff726b-6aaf-45e1-a73e-ac88d439a9d2"),
+                            Amount = 100.00m,
+                            PaymentDate = new DateTime(2025, 3, 11, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6615),
+                            Reciever = new Guid("bcccd887-9858-4f32-9c91-b4889035793f"),
+                            Sender = new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2"),
+                            UserId = new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalRole", b =>
@@ -279,6 +339,42 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("bcccd887-9858-4f32-9c91-b4889035793f"),
+                            AccessFailedCount = 0,
+                            Address = "123 Main St, New York, NY",
+                            Balance = 500.75m,
+                            ConcurrencyStamp = "31861865-49e5-4de9-96bc-2cf09d214e0a",
+                            Email = "john.doe@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
+                            NormalizedUserName = "JOHN_DOE",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = false,
+                            UserName = "john_doe"
+                        },
+                        new
+                        {
+                            Id = new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2"),
+                            AccessFailedCount = 0,
+                            Address = "456 Elm St, Los Angeles, CA",
+                            Balance = 1200.50m,
+                            ConcurrencyStamp = "6bccd1b2-decf-4191-bbc1-2c061e244bb7",
+                            Email = "jane.smith@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
+                            NormalizedUserName = "JANE_SMITH",
+                            PhoneNumber = "0987654321",
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = false,
+                            UserName = "jane_smith"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
