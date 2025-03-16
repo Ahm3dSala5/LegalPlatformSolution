@@ -9,6 +9,7 @@ namespace LegalPlatform.Infrastructure.Domain.DTOs.Articale
 {
     public class WriteArticaleDTO
     {
+        public string TArticale_Title { set; get; }
         public string Articale_Content { set; get; }
         public Guid Articale_UserId { set; get; }
     }

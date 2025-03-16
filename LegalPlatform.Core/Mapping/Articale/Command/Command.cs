@@ -16,6 +16,7 @@ namespace LegalPlatform.Core.Mapping.Articales
         {
             CreateMap<Articale, WriteArticaleDTO>().
                 ForMember(dest => dest.Articale_UserId, opt => opt.MapFrom(src => src.UserId)).
+                ForMember(dest => dest.TArticale_Title, opt => opt.MapFrom(src => src.Title)).
                 ForMember(dest => dest.Articale_Content, opt => opt.MapFrom(src => src.Content)).ReverseMap();
         }
 

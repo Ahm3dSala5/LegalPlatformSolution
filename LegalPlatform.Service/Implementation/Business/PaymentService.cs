@@ -79,7 +79,8 @@ namespace LegalPlatform.Service.Implementation.Business
                     {
                         Amount = payment.Amount,
                         Reciever = payment.TO,
-                        Sender = payment.From
+                        Sender = payment.From,
+                        UserId = payment.From
                     };
                     transactionOperation = 0;
                     await _context.Payments.AddAsync(_payment);

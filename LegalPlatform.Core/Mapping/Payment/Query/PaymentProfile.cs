@@ -10,6 +10,7 @@ namespace LegalPlatform.Core.Mapping.Payments
             CreateMap<PaymentModel, Payment>().
                 ForMember(x => x.Id, x => x.MapFrom(x => x.Payment_Id)).
                 ForMember(x => x.PaymentDate, x => x.MapFrom(x => x.Payment_Date)).
+                ForMember(x => x.Amount, x => x.MapFrom(x => x.Payment_Amount)).
                 ForMember(x => x.Sender, x => x.MapFrom(x => x.Payment_Sender)).
                 ForMember(x => x.Reciever, x => x.MapFrom(x => x.Payment_Reciver)).ReverseMap();
         }
