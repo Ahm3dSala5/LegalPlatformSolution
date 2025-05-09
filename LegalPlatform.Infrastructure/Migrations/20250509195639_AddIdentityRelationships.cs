@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LegalPlatform.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Create_Db : Migration
+    public partial class AddIdentityRelationships : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,60 +26,6 @@ namespace LegalPlatform.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Client", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IdentityUserClaim",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUserClaim", x => new { x.UserId, x.Id });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IdentityUserLogin",
-                columns: table => new
-                {
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUserLogin", x => new { x.UserId, x.LoginProvider });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IdentityUserRole",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUserRole", x => new { x.UserId, x.RoleId });
-                });
-
-            migrationBuilder.CreateTable(
-                name: "IdentityUserToken",
-                columns: table => new
-                {
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_IdentityUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
                 });
 
             migrationBuilder.CreateTable(
@@ -117,21 +63,6 @@ namespace LegalPlatform.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "RoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -156,6 +87,27 @@ namespace LegalPlatform.Infrastructure.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RoleClaims",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_RoleClaims_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -201,6 +153,90 @@ namespace LegalPlatform.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "IdentityUserClaim",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ClaimType = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ClaimValue = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUserClaim", x => new { x.UserId, x.Id });
+                    table.ForeignKey(
+                        name: "FK_IdentityUserClaim_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentityUserLogin",
+                columns: table => new
+                {
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProviderKey = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProviderDisplayName = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUserLogin", x => new { x.UserId, x.LoginProvider });
+                    table.ForeignKey(
+                        name: "FK_IdentityUserLogin_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentityUserRole",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    RoleId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUserRole", x => new { x.UserId, x.RoleId });
+                    table.ForeignKey(
+                        name: "FK_IdentityUserRole_Role_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Role",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_IdentityUserRole_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "IdentityUserToken",
+                columns: table => new
+                {
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    LoginProvider = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    Value = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_IdentityUserToken", x => new { x.UserId, x.LoginProvider, x.Name });
+                    table.ForeignKey(
+                        name: "FK_IdentityUserToken_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Payment",
                 columns: table => new
                 {
@@ -240,7 +276,7 @@ namespace LegalPlatform.Infrastructure.Migrations
                         column: x => x.ArticaleId,
                         principalTable: "Articale",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Comment_User_UserId",
                         column: x => x.UserId,
@@ -254,8 +290,17 @@ namespace LegalPlatform.Infrastructure.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "Address", "Balance", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2"), 0, "456 Elm St, Los Angeles, CA", 1200.50m, "6bccd1b2-decf-4191-bbc1-2c061e244bb7", "jane.smith@example.com", true, false, null, "JANE.SMITH@EXAMPLE.COM", "JANE_SMITH", null, "0987654321", true, null, false, "jane_smith" },
-                    { new Guid("bcccd887-9858-4f32-9c91-b4889035793f"), 0, "123 Main St, New York, NY", 500.75m, "31861865-49e5-4de9-96bc-2cf09d214e0a", "john.doe@example.com", true, false, null, "JOHN.DOE@EXAMPLE.COM", "JOHN_DOE", null, "1234567890", true, null, false, "john_doe" }
+                    { new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a"), 0, "123 Main St, New York, NY", 500.75m, "dcf609cd-fce8-4615-8059-1beb9a6b5b52", "john.doe@example.com", true, false, null, "JOHN.DOE@EXAMPLE.COM", "JOHN_DOE", null, "1234567890", true, null, false, "john_doe" },
+                    { new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6"), 0, "456 Elm St, Los Angeles, CA", 1200.50m, "cc639b9a-467d-4613-aaaf-d5c9cb1a96a4", "jane.smith@example.com", true, false, null, "JANE.SMITH@EXAMPLE.COM", "JANE_SMITH", null, "0987654321", true, null, false, "jane_smith" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Appointment",
+                columns: new[] { "Id", "Date", "Note", "Status", "UserId" },
+                values: new object[,]
+                {
+                    { new Guid("67ff139c-26d8-4e3d-96cf-e7087dcaa95c"), new DateTime(2025, 5, 16, 19, 56, 37, 494, DateTimeKind.Utc).AddTicks(1620), "Consultation for legal advice.", 0, new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a") },
+                    { new Guid("eb61dc52-8f3a-4fed-bb15-0b3be326022f"), new DateTime(2025, 5, 12, 19, 56, 37, 494, DateTimeKind.Utc).AddTicks(1630), "Consultation for legal advice.", 2, new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6") }
                 });
 
             migrationBuilder.InsertData(
@@ -263,8 +308,8 @@ namespace LegalPlatform.Infrastructure.Migrations
                 columns: new[] { "Id", "Content", "Title", "UploadedAt", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("133dcaeb-a659-4ada-9869-42573fa02739"), "Content of legal policies article.", "Understanding Legal Policies", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2") },
-                    { new Guid("ea8d2f13-fd5e-4adb-944c-998aabfd5985"), "Content of legal insights article.", "Legal Insights", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("bcccd887-9858-4f32-9c91-b4889035793f") }
+                    { new Guid("89bec3a4-06fe-4eb6-b620-a76a284f518d"), "Content of legal insights article.", "Legal Insights", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a") },
+                    { new Guid("a465293d-c03b-4b9e-bd40-a9223f1398e8"), "Content of legal policies article.", "Understanding Legal Policies", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6") }
                 });
 
             migrationBuilder.InsertData(
@@ -272,8 +317,8 @@ namespace LegalPlatform.Infrastructure.Migrations
                 columns: new[] { "Id", "Amount", "PaymentDate", "Reciever", "Sender", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("50aff29e-d272-4017-871f-d8c94230e7e2"), 250.00m, new DateTime(2025, 3, 16, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6604), new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2"), new Guid("bcccd887-9858-4f32-9c91-b4889035793f"), new Guid("bcccd887-9858-4f32-9c91-b4889035793f") },
-                    { new Guid("c1ff726b-6aaf-45e1-a73e-ac88d439a9d2"), 100.00m, new DateTime(2025, 3, 11, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6615), new Guid("bcccd887-9858-4f32-9c91-b4889035793f"), new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2"), new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2") }
+                    { new Guid("16ad0fd7-968c-45dd-90ef-9acec77f5cb2"), 100.00m, new DateTime(2025, 5, 4, 19, 56, 37, 494, DateTimeKind.Utc).AddTicks(1603), new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a"), new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6"), new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6") },
+                    { new Guid("7d7f9408-1782-4945-8849-b5702f074a2d"), 250.00m, new DateTime(2025, 5, 9, 19, 56, 37, 494, DateTimeKind.Utc).AddTicks(1593), new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6"), new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a"), new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a") }
                 });
 
             migrationBuilder.InsertData(
@@ -281,8 +326,8 @@ namespace LegalPlatform.Infrastructure.Migrations
                 columns: new[] { "Id", "AddedAt", "ArticaleId", "Text", "UserId" },
                 values: new object[,]
                 {
-                    { new Guid("428937b9-2acc-46df-9a94-2ba10fefa89a"), new DateTime(2025, 3, 16, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6585), new Guid("133dcaeb-a659-4ada-9869-42573fa02739"), "Very informative!", new Guid("374185dc-a96d-4e87-ada1-60efa7fe71e2") },
-                    { new Guid("80f9cdc3-ec47-465d-871e-706f87acfa7e"), new DateTime(2025, 3, 16, 10, 25, 54, 609, DateTimeKind.Utc).AddTicks(6570), new Guid("ea8d2f13-fd5e-4adb-944c-998aabfd5985"), "Great article!", new Guid("bcccd887-9858-4f32-9c91-b4889035793f") }
+                    { new Guid("0d71462c-2fdc-4145-b3c1-7cfa9aa86799"), new DateTime(2025, 5, 9, 19, 56, 37, 494, DateTimeKind.Utc).AddTicks(1574), new Guid("89bec3a4-06fe-4eb6-b620-a76a284f518d"), "Great article!", new Guid("46652bc5-8b3e-4d2e-bb06-b5ede371078a") },
+                    { new Guid("4d7c41a2-1fb7-4bff-8756-76a80bf30f82"), new DateTime(2025, 5, 9, 19, 56, 37, 494, DateTimeKind.Utc).AddTicks(1585), new Guid("a465293d-c03b-4b9e-bd40-a9223f1398e8"), "Very informative!", new Guid("cb85c865-ec34-4c26-9399-e8be9f2a9dc6") }
                 });
 
             migrationBuilder.CreateIndex(
@@ -306,9 +351,19 @@ namespace LegalPlatform.Infrastructure.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_IdentityUserRole_RoleId",
+                table: "IdentityUserRole",
+                column: "RoleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Payment_UserId",
                 table: "Payment",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RoleClaims_RoleId",
+                table: "RoleClaims",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
@@ -342,13 +397,13 @@ namespace LegalPlatform.Infrastructure.Migrations
                 name: "Payment");
 
             migrationBuilder.DropTable(
-                name: "Role");
-
-            migrationBuilder.DropTable(
                 name: "RoleClaims");
 
             migrationBuilder.DropTable(
                 name: "Articale");
+
+            migrationBuilder.DropTable(
+                name: "Role");
 
             migrationBuilder.DropTable(
                 name: "User");

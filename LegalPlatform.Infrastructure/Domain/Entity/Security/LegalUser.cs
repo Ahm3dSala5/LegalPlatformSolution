@@ -13,6 +13,9 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Security
         public string Address { set; get; }
 
         public decimal Balance { set; get; }
+
+        public Lawyer? LawyerProfile { get; set; }
+        public Client? ClientProfile { get; set; }
         public ICollection<Payment> Payments { set; get; } = new List<Payment>();
         public ICollection<Articale> Articales { set; get; } = new List<Articale>();
         public ICollection<Comment> Comments { set; get; } = new List<Comment>();

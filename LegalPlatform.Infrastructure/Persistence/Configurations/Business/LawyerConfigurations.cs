@@ -9,6 +9,12 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
         public void Configure(EntityTypeBuilder<Lawyer> builder)
         {
             builder.ToTable("Lawyer").HasKey(x => x.Id);
+
+            builder.HasOne(x => x.User)
+            .WithOne(x => x.LawyerProfile)
+            .HasForeignKey<Lawyer>(x => x.UserId)
+            .OnDelete(DeleteBehavior.Cascade); // or Restrict, based on your logic
+
         }
     }
 }

@@ -31,7 +31,7 @@ namespace LegalPlatform.Infrastructure.Repository
         public async ValueTask<string> CreateAsync(TEntity entity)
         {
             await _entity.AddAsync(entity);
-            var addingResult = await  _context.SaveChangesAsync();
+            var addingResult = await _context.SaveChangesAsync();
             return addingResult > 0 ? "Successfully" : "Invalid";
         }
 
@@ -70,5 +70,6 @@ namespace LegalPlatform.Infrastructure.Repository
             var updateResult = await _context.SaveChangesAsync();
             return updateResult > 0 ? "Successfully" : "Invalid";
         }
+
     }
 }

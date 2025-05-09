@@ -11,5 +11,6 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
         public string ? Note { set; get; }
         public LegalUser User { set; get; }
         public Guid UserId { set; get; }
+
     }
 }

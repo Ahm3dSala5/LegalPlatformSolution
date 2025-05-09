@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using LegalPlatform.Infrastructure.Domain.Entity.Base;
+using LegalPlatform.Infrastructure.Domain.Entity.Security;
 
 namespace LegalPlatform.Infrastructure.Domain.Entity.Business
 {
@@ -16,5 +17,8 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
         public string OfficeAddress { get; set; }
 
         public decimal Balance { set; get; }
+
+        public Guid UserId { set; get; }
+        public LegalUser User { get; set; } // Navigation property to the associated LegalUser
     }
 }

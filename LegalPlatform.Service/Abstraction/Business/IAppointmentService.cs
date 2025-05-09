@@ -7,4 +7,12 @@ namespace LegalPlatform.Service.Abstraction.Business
     {
 
     }
+
+    public class App
+    {
+        static void Main()
+        {
+            var Payment = new Payment();
+        }
+    }
 }

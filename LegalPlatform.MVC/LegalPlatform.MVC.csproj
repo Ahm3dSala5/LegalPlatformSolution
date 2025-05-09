@@ -1,0 +1,90 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\js\main.js" />
+    <Content Remove="wwwroot\lib\animate\animate.css" />
+    <Content Remove="wwwroot\lib\animate\animate.min.css" />
+    <Content Remove="wwwroot\lib\easing\easing.js" />
+    <Content Remove="wwwroot\lib\easing\easing.min.js" />
+    <Content Remove="wwwroot\lib\isotope\isotope.pkgd.js" />
+    <Content Remove="wwwroot\lib\isotope\isotope.pkgd.min.js" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\ajax-loader.gif" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.carousel.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.carousel.min.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.default.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.default.min.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.green.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.theme.green.min.css" />
+    <Content Remove="wwwroot\lib\owlcarousel\assets\owl.video.play.png" />
+    <Content Remove="wwwroot\lib\owlcarousel\LICENSE" />
+    <Content Remove="wwwroot\lib\owlcarousel\owl.carousel.js" />
+    <Content Remove="wwwroot\lib\owlcarousel\owl.carousel.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Front\about.html" />
+    <None Include="wwwroot\Front\appointment.html" />
+    <None Include="wwwroot\Front\authentication.html" />
+    <None Include="wwwroot\Front\blog.html" />
+    <None Include="wwwroot\Front\contact.html" />
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\img\about.jpg" />
+    <None Include="wwwroot\img\blog-1.jpg" />
+    <None Include="wwwroot\img\blog-2.jpg" />
+    <None Include="wwwroot\img\blog-3.jpg" />
+    <None Include="wwwroot\img\carousel-1.jpg" />
+    <None Include="wwwroot\img\carousel-2.jpg" />
+    <None Include="wwwroot\img\carousel-3.jpg" />
+    <None Include="wwwroot\img\faqs.jpg" />
+    <None Include="wwwroot\img\feature.jpg" />
+    <None Include="wwwroot\img\portfolio-1.jpg" />
+    <None Include="wwwroot\img\portfolio-2.jpg" />
+    <None Include="wwwroot\img\portfolio-3.jpg" />
+    <None Include="wwwroot\img\portfolio-4.jpg" />
+    <None Include="wwwroot\img\portfolio-5.jpg" />
+    <None Include="wwwroot\img\portfolio-6.jpg" />
+    <None Include="wwwroot\img\single.jpg" />
+    <None Include="wwwroot\img\team-1.jpg" />
+    <None Include="wwwroot\img\team-2.jpg" />
+    <None Include="wwwroot\img\team-3.jpg" />
+    <None Include="wwwroot\img\team-4.jpg" />
+    <None Include="wwwroot\img\testimonial-1.jpg" />
+    <None Include="wwwroot\img\testimonial-2.jpg" />
+    <None Include="wwwroot\img\testimonial-3.jpg" />
+    <None Include="wwwroot\img\testimonial-4.jpg" />
+    <None Include="wwwroot\Front\index.html" />
+    <None Include="wwwroot\Front\law-firm-website-template.jpg" />
+    <None Include="wwwroot\Front\team.html" />
+    <None Include="wwwroot\js\main.js" />
+    <None Include="wwwroot\lib\animate\animate.css" />
+    <None Include="wwwroot\lib\animate\animate.min.css" />
+    <None Include="wwwroot\lib\easing\easing.js" />
+    <None Include="wwwroot\lib\easing\easing.min.js" />
+    <None Include="wwwroot\lib\isotope\isotope.pkgd.js" />
+    <None Include="wwwroot\lib\isotope\isotope.pkgd.min.js" />
+    <None Include="wwwroot\lib\owlcarousel\assets\ajax-loader.gif" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.carousel.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.carousel.min.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.default.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.default.min.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.green.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.theme.green.min.css" />
+    <None Include="wwwroot\lib\owlcarousel\assets\owl.video.play.png" />
+    <None Include="wwwroot\lib\owlcarousel\LICENSE" />
+    <None Include="wwwroot\lib\owlcarousel\owl.carousel.js" />
+    <None Include="wwwroot\lib\owlcarousel\owl.carousel.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LegalPlatform.Core\LegalPlatform.Core.csproj" />
+    <ProjectReference Include="..\LegalPlatform.Infrastructure\LegalPlatform.Infrastructure.csproj" />
+    <ProjectReference Include="..\LegalPlatform.Service\LegalPlatform.Service.csproj" />
+  </ItemGroup>
+
+</Project>

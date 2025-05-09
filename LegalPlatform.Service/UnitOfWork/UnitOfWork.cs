@@ -16,11 +16,11 @@ namespace LegalPlatform.Service.UnitOfWorks
             this.AppointmentService = new AppointmentService(_context, config);
             this.ArticaleService = new ArticaleService(_context, config);
             this.paymentService = new PaymentService(_context, config);
-            _config = config;
+            this._config = config;
         }
 
         public ICommentService CommentService { get; private set; }
-
+       
         public IArticaleService ArticaleService { get; private set; }
 
         public IPaymentService paymentService { get; private set; }
