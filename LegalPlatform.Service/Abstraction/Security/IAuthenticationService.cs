@@ -5,7 +5,7 @@ namespace GraduationProjectStore.Service.Abstraction.Security
 {
     public interface IAuthenticationService : IMainRepository<LegalUser>
     {
-        ValueTask<string> RegisterAsync(RegisterDTO user);
+        ValueTask<object> RegisterAsync(RegisterDTO user);
         ValueTask<object> ConfirmRegisterAsync(string username,string confirmationCode);
         ValueTask<object> LoginAsync(LoginDTO user);
         ValueTask<string> ChangePasswordAsync(ChangePassowrdDTO changePassword);

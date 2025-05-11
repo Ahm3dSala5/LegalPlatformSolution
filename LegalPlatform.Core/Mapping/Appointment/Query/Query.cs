@@ -17,9 +17,8 @@ namespace LegalPlatform.Core.Mapping.Appointments
         {
             CreateMap<AppointmentModel, Appointment>().
                 ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Appointment_Id)).
-                ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Appointment_Note)).
-                ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.AppointmentAt)).
-                ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Appointment_Status)).ReverseMap();
+                ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Appointment_Note)).
+                ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.AppointmentAt));
         }
     }
 }

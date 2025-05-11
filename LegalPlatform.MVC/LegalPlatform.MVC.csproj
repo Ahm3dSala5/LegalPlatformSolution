@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -28,11 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\Front\about.html" />
-    <None Include="wwwroot\Front\appointment.html" />
-    <None Include="wwwroot\Front\authentication.html" />
-    <None Include="wwwroot\Front\blog.html" />
-    <None Include="wwwroot\Front\contact.html" />
     <None Include="wwwroot\css\style.css" />
     <None Include="wwwroot\img\about.jpg" />
     <None Include="wwwroot\img\blog-1.jpg" />
@@ -58,9 +53,6 @@
     <None Include="wwwroot\img\testimonial-2.jpg" />
     <None Include="wwwroot\img\testimonial-3.jpg" />
     <None Include="wwwroot\img\testimonial-4.jpg" />
-    <None Include="wwwroot\Front\index.html" />
-    <None Include="wwwroot\Front\law-firm-website-template.jpg" />
-    <None Include="wwwroot\Front\team.html" />
     <None Include="wwwroot\js\main.js" />
     <None Include="wwwroot\lib\animate\animate.css" />
     <None Include="wwwroot\lib\animate\animate.min.css" />

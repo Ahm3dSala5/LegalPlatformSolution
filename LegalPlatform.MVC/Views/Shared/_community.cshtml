@@ -75,16 +75,26 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">About</a>
-                            <a href="team.html" class="nav-item nav-link">Attorneys</a>
-                            <a href="blog.html" class="nav-item nav-link">Community</a>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a asp-controller="Home" asp-action="index" class="nav-item nav-link">Home</a>
+                            <a asp-controller="Home" asp-action="About" class="nav-item nav-link">About</a>
+                            <a asp-controller="Home" asp-action="Lawers" class="nav-item nav-link">Lawers</a>
+                            <div class="nav-item dropdown">
+                                <a asp-controller="Home" asp-action="Community" class="nav-item nav-link">Community</a>
+                            </div>
+                            <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
                         </div>
 
-                    </div>
-                    <div class="ml-auto">
-                        <a class="btn" href="authentication.html">login</a>
+                        <div class="ml-auto">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span class="nav-item nav-link">Welcome, @User.Identity.Name!</span>
+                                <a class="btn nav-item nav-link" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                            }
+                            else
+                            {
+                                <a class="btn nav-item nav-link" asp-controller="Home" asp-action="OpenLoginPage">Login</a>
+                            }
+                        </div>
                     </div>
             </div>
             </nav>

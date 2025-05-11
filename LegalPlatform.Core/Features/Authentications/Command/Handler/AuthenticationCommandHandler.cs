@@ -12,7 +12,7 @@ namespace GraduationProjectStore.Core.Feature.Authentications.Command.Handler
     public class AuthenticationCommandHandler 
        : ResultHandler,
        IRequestHandler<LoginUserCommand, Result<object>> ,
-       IRequestHandler<RegisterUserCommand, Result<string>> ,
+       IRequestHandler<RegisterUserCommand, Result<object>> ,
        IRequestHandler<ForgotPasswordCommand, Result<string>> ,
        IRequestHandler<ChangePasswordCommand, Result<string>>,
        IRequestHandler<DeleteUserCommand, Result<string>>,
@@ -25,16 +25,16 @@ namespace GraduationProjectStore.Core.Feature.Authentications.Command.Handler
             this._authenticationService = authenticationService;    
         }
 
-        public async Task<Result<string>> Handle
+        public async Task<Result<object>> Handle
             (RegisterUserCommand request, CancellationToken cancellationToken)
         {
             if(request.RegisterDTO == null)
-                return BadRequest<string>(_message:"Invalid User Data");
+                return BadRequest<object>(_message:"Invalid User Data");
 
-            var registerOperations = await _authenticationService.RegisterAsync(request.RegisterDTO);
-            return registerOperations == "Successfully" ?
-                OK<string>(_message: "Please Check on Your Email Notification To Get Confirmation Code")
-                :BadRequest<string>(_message:"Invalid Registration");
+            var generatedToken = await _authenticationService.RegisterAsync(request.RegisterDTO);
+            return generatedToken != null ?
+                OK<object>(_data:generatedToken)
+                :BadRequest<object>(_message:"Invalid Registration");
         }
 
         public async Task<Result<object>> Handle

@@ -10,11 +10,17 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Business
         {
             builder.ToTable("Appointment").HasKey(x => x.Id);
 
-            builder.HasOne(x => x.User)
+            builder.HasOne(x => x.Client)
                 .WithMany(x => x.Appointments)
-                .HasForeignKey(x => x.UserId)
+                .HasForeignKey(x => x.ClientId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired(true);
+
+            builder.HasOne(x => x.Lawer)
+               .WithMany(x => x.Appointments)
+               .HasForeignKey(x => x.LawerId)
+               .OnDelete(DeleteBehavior.Restrict)
+               .IsRequired(true);
         }
     }
 

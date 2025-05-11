@@ -1,0 +1,273 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Kanun - Law Firm Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Law Firm Website Template" name="keywords">
+    <meta content="Law Firm Website Template" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,600;1,700;1,800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url(img/carousel-2.jpg);
+            background-size: 130%;
+            background-repeat: repeat;
+            background-attachment: scroll;
+            text-align: center;
+        }
+
+        /*.auth-container {
+                    width: 350px;
+                    background: white;
+                    padding: 20px;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                    border-radius: 10px;
+                    text-align: center;
+                }
+                .form-card {
+                    display: flex;
+                    flex-direction: column;
+                }*/
+        .hidden {
+            display: none;
+        }
+
+        input {
+            width: 50%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+            button:hover {
+                background-color: #aa9166;
+            }
+
+        p {
+            margin-top: 10px;
+            font-size: 14px;
+            color: black;
+        }
+
+        a {
+            color: /*red*/ #007bff;
+            text-decoration: none;
+        }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+        #userType {
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Top Bar Start -->
+        <div class="top-bar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="logo">
+                            <a href="index.html">
+                                <h1>Legal</h1>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="top-bar-right">
+                            <div class="text">
+                                <h2>Available</h2>
+                                <p>Any time</p>
+                            </div>
+                            <div class="text">
+                                <h2>+123 456 7890</h2>
+                                <p>Call Us For Free Consultation</p>
+                            </div>
+                            <div class="social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Top Bar End -->
+    <!-- Nav Bar Start -->
+    <div class="nav-bar">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+                <a href="#" class="navbar-brand">MENU</a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav mr-auto">
+                        <a asp-controller="Home" asp-action="index" class="nav-item nav-link">Home</a>
+                        <a asp-controller="Home" asp-action="About" class="nav-item nav-link">About</a>
+                        <a asp-controller="Home" asp-action="Lawers" class="nav-item nav-link">Lawers</a>
+                        <div class="nav-item dropdown">
+                            <a asp-controller="Home" asp-action="Community" class="nav-item nav-link">Community</a>
+                        </div>
+                        <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
+                    </div>
+
+                    <div class="ml-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <span class="nav-item nav-link">Welcome, @User.Identity.Name!</span>
+                            <a class="btn nav-item nav-link" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                            <a class="btn nav-item nav-link" asp-controller="Home" asp-action="OpenLoginPage">Login</a>
+                        }
+                    </div>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Nav Bar End -->
+    <!-- Authentication -->
+    <div class="auth-container">
+        <div id="loginForm" class="form-card">
+            <<form asp-controller="Authentication" asp-action="Login" method="post">
+                <h2>Login</h2>
+
+                <!-- Use UserName instead of Email -->
+                <input type="text" name="UserName" placeholder="Enter your username" class="form-input" required />
+
+                <input type="password" name="Password" placeholder="Enter your password" class="form-input" required />
+
+                <button type="submit">Login</button>
+
+                @* <p><a asp-controller="Home" asp-action="OpenForgotPasswordPage">Forgot Password?</a></p> *@
+                <p>Don't have an account? <a href="#" onclick="showForm('signUpForm')">Sign Up</a></p>
+            </form>
+        </div>
+
+        <div id="signUpForm" class="form-card hidden">
+            <form asp-controller="Authentication" asp-action="Register" method="post">
+                <h2>Sign Up</h2>
+
+                <input type="text" name="FullName" placeholder="Enter your full name" class="form-input" required />
+
+                <input type="email" name="Email" placeholder="Enter your email" class="form-input" required />
+
+                <input type="password" name="Password" placeholder="Create password" class="form-input" required />
+
+                <input type="text" name="PhoneNumber" placeholder="Enter phone number" class="form-input" />
+
+                <!-- Role dropdown styled like input -->
+                <select name="Role" class="form-input">
+                    <option value="user">User</option>
+                    <option value="lawyer">Lawyer</option>
+                </select>
+
+                <button type="submit">Sign Up</button>
+
+                <p>Already have an account? <a href="#" onclick="showForm('loginForm')">Login</a></p>
+            </form>
+        </div>
+
+
+        <div id="forgotPasswordForm" class="form-card hidden">
+
+            <form asp-controller="Authentication" asp-action="ForgotPassword" method="post">
+                <h2>Forgot Password</h2>
+
+                <input type="email" name="Email" placeholder="Enter your email" class="form-input" required />
+
+                <button type="submit">Send OTP</button>
+
+                <p><a href="#" onclick="showForm('loginForm')">Back to Login</a></p>
+            </form>
+        </div>
+
+        <div id="otpForm" class="form-card hidden">
+            <h2>Enter OTP</h2>
+            <input type="text" id="otpCode" placeholder="Enter OTP" required>
+            <button onclick="verifyOTP()">Verify OTP</button>
+        </div>
+
+        <div id="resetPasswordForm" class="form-card hidden">
+            <h2>Reset Password</h2>
+            <input type="password" id="newPassword" placeholder="Enter new password" required>
+            <button onclick="resetPassword()">Reset Password</button>
+        </div>
+    </div>
+
+    <script>
+        function showForm(formId) {
+            document.querySelectorAll('.form-card').forEach(form => form.classList.add('hidden'));
+            document.getElementById(formId).classList.remove('hidden');
+        }
+
+        function login() {
+            alert('Login functionality to be implemented.');
+        }
+
+        function signUp() {
+            alert('Sign Up functionality to be implemented.');
+        }
+
+        function sendOTP() {
+            alert('OTP sent to email. Please enter it.');
+            showForm('otpForm');
+        }
+
+        function verifyOTP() {
+            alert('OTP verified.Now reset your password.');
+            showForm('resetPasswordForm');
+        }
+
+        function resetPassword() {
+            alert('Password reset successfully. You can now login.');
+            showForm('loginForm');
+        }
+    </script>
+
+    <!-- Template Javascript -->
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

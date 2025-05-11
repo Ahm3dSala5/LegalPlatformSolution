@@ -73,16 +73,25 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link active">Home</a>
+                            <a asp-controller="Home" asp-action="index" class="nav-item nav-link">Home</a>
                             <a asp-controller="Home" asp-action="About" class="nav-item nav-link">About</a>
-                            <a href="team.html" class="nav-item nav-link">Attorneys</a>
+                            <a asp-controller="Home" asp-action="Lawers" class="nav-item nav-link">Lawers</a>
                             <div class="nav-item dropdown">
                                 <a asp-controller="Home" asp-action="Community" class="nav-item nav-link">Community</a>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
                         </div>
+
                         <div class="ml-auto">
-                            <a class="btn" href="authentication.html">login</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span class="nav-item nav-link">Welcome, @User.Identity.Name!</span>
+                                <a class="btn nav-item nav-link" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                            }
+                            else
+                            {
+                                <a class="btn nav-item nav-link" asp-controller="Home" asp-action="OpenLoginPage">Login</a>
+                            }
                         </div>
                     </div>
                 </nav>
@@ -102,7 +111,8 @@
                     <div class="carousel-caption">
                         <h1 class="animated fadeInLeft">We fight for your justice</h1>
                         <p class="animated fadeInRight">We are always here to help you...</p>
-                        <a class="btn animated fadeInUp" href="contact.html">Get free consultation</a>
+                        <a class="btn animated fadeInUp" asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Get free consultation</a>
+                        @* <a class="btn animated fadeInUp" href="contact.html">Get free consultation</a> *@
                     </div>
                 </div>
 
@@ -111,7 +121,8 @@
                     <div class="carousel-caption">
                         <h1 class="animated fadeInLeft">We prepared to oppose for you</h1>
                         <p class="animated fadeInRight">We are always here to help you...</p>
-                        <a class="btn animated fadeInUp" href="contact.html">Get free consultation</a>
+                        <a class="btn animated fadeInUp" asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Get free consultation</a>
+                        @* <a class="btn animated fadeInUp" href="contact.html">Get free consultation</a> *@
                     </div>
                 </div>
 
@@ -120,7 +131,8 @@
                     <div class="carousel-caption">
                         <h1 class="animated fadeInLeft">We fight for your privilege</h1>
                         <p class="animated fadeInRight">We are always here to help you...</p>
-                        <a class="btn animated fadeInUp" href="contact.html">Get free consultation</a>
+                        <a class="btn animated fadeInUp" asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Get free consultation</a>
+                        @* <a class="btn animated fadeInUp" href="contact.html">Get free consultation kfefef</a> *@
                     </div>
                 </div>
             </div>
@@ -276,7 +288,7 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -294,7 +306,7 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                 <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -312,7 +324,7 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -330,7 +342,7 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>

@@ -38,7 +38,7 @@ namespace GraduationProjectStore.Service.Implementation.Business.Helper
             return await mail.SendMail(user.Email,"Confirmation Code", emailMessage);
         }
 
-        public static object GenerateToken(IConfiguration config, LegalUser client, IEnumerable<string> roles)
+        public static object GenerateToken(IConfiguration config, LegalUser client, LegalRole role)
         {
             var JwtOptions = config.GetSection("JWT").Get<JWTOptions>();
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(JwtOptions!.Key));
@@ -46,7 +46,7 @@ namespace GraduationProjectStore.Service.Implementation.Business.Helper
 
             var _claims = new List<Claim>()
             {
-                new Claim(ClaimTypes.Role,string.Join(' ',roles)),
+                new Claim(ClaimTypes.Role,role.Name),
                 new Claim(JwtRegisteredClaimNames.Sub,client.UserName!),
                 new Claim(JwtRegisteredClaimNames.Name,client.UserName!),
                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),

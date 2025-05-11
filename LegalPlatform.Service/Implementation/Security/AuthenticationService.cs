@@ -1,4 +1,5 @@
-﻿using GraduationProjecrStore.Infrastructure.Domain.DTOs.Authentication;
+﻿using System.Data;
+using GraduationProjecrStore.Infrastructure.Domain.DTOs.Authentication;
 using GraduationProjectStore.Service.Abstraction.Security;
 using GraduationProjectStore.Service.Implementation.Business.Helper;
 using LegalPlatform.Infrastructure.Domain.Entity.Security;
@@ -15,15 +16,16 @@ namespace GraduationProjectStore.Service.Implementation.Security
         private readonly IConfiguration _config;
         private readonly UserManager<LegalUser> _userManager;
         private readonly SignInManager<LegalUser> _signInManager;
-
+        private readonly RoleManager<LegalRole> _roleManager;
         public AuthenticationService
             (UserManager<LegalUser> user, IMailService mail, SignInManager<LegalUser> signInManager,
-            IConfiguration config, LegalPlatformContext context) :base(context,config)
+            IConfiguration config, LegalPlatformContext context, RoleManager<LegalRole> roleManager) : base(context, config)
         {
             this._userManager = user;
             this._mail = mail;
             this._signInManager = signInManager;
             this._config = config;
+            _roleManager = roleManager;
         }
 
         public async ValueTask<string> ChangePasswordAsync
@@ -54,7 +56,9 @@ namespace GraduationProjectStore.Service.Implementation.Security
             if(confirmforgetPassword.ConfirmationCode != code)
                 return "Invalid";
 
-            return UserHelper.GenerateToken(_config, user, await _userManager.GetRolesAsync(user)); 
+            var roles = await _userManager.GetRolesAsync(user);
+
+            return UserHelper.GenerateToken(_config, user, await _roleManager.FindByNameAsync(roles[0])); 
         }
 
         public async ValueTask<object> ConfirmRegisterAsync(string username, string confirmationCode)
@@ -71,8 +75,7 @@ namespace GraduationProjectStore.Service.Implementation.Security
 
             await _signInManager.SignInAsync(user,true);
             var roles = await _userManager.GetRolesAsync(user);
-
-            return  UserHelper.GenerateToken(_config, user,roles);
+            return  UserHelper.GenerateToken(_config, user, await _roleManager.FindByNameAsync(roles[0]));
         }
 
         public async ValueTask<string> DeleteUserAsync(string username)
@@ -109,28 +112,33 @@ namespace GraduationProjectStore.Service.Implementation.Security
             if (!checkPassword)
                 return "Invalid";
 
-            await _signInManager.SignInAsync(_user,user.RememberMe);
+            await _signInManager.SignInAsync(_user,true);
             var roles = await _userManager.GetRolesAsync(_user);
-            return UserHelper.GenerateToken(_config, _user, roles);
+
+            return UserHelper.GenerateToken(_config, _user, await _roleManager.FindByNameAsync(roles[0]));
         }
 
-        public async ValueTask<string> RegisterAsync(RegisterDTO user)
+        public async ValueTask<object> RegisterAsync(RegisterDTO user)
         {
+
+            var role = await _roleManager.FindByNameAsync(user.Role);
             var appUser = new LegalUser()
             {
-                UserName = user.UserName,
-                Address = user.Address,
+                UserName = user.FullName,
+                PhoneNumber = user.PhoneNumber,
                 PasswordHash = user.Password,
-                Email = user.Email
+                Email = user.Email ,
             };
 
             var createResult = await _userManager.CreateAsync(appUser, user.Password);
             if (!createResult.Succeeded)
                 return "Invalid";
 
-            // afterv this pice user created successfully 
-            // then we will send confirmation code for user bny using it email
-            return await UserHelper.GenerateConfirmationCode(appUser,_mail,_userManager);
+            await _signInManager.SignInAsync(appUser,true);
+            var AddToRoleOperation = await _userManager.AddToRoleAsync(appUser,role.Name);
+
+            return AddToRoleOperation.Succeeded ? UserHelper.GenerateToken(_config, appUser, role)
+                :"Invalid Add To Roles";
         }
     }
 }

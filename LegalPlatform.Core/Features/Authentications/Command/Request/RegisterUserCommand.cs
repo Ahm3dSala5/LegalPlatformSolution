@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace GraduationProjectStore.Core.Feature.Authentications.Command.Request
 {
-    public class RegisterUserCommand : IRequest<Result<string>>
+    public class RegisterUserCommand : IRequest<Result<object>>
     {
         public RegisterUserCommand(RegisterDTO registerDTO)
         {

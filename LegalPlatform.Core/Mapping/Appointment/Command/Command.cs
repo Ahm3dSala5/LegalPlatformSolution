@@ -15,19 +15,21 @@ namespace LegalPlatform.Core.Mapping.Appointments
     {
         public void StartAppointmentCommandMapping()
         {
-            CreateMap<Appointment, StartAppointmentDTO>().
-                ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Note)).
-                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.Date)).
-                ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status)).ReverseMap();
+            CreateMap<MakeAppointmentDTO, Appointment>()
+             .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+             .ForMember(dest => dest.Date, opt => opt.MapFrom(src => src.Date))
+             .ForMember(dest => dest.ClientId, opt => opt.Ignore()) 
+             .ForMember(dest => dest.LawerId, opt => opt.Ignore())  
+             .ForMember(dest => dest.Client, opt => opt.Ignore())   
+             .ForMember(dest => dest.Lawer, opt => opt.Ignore()); 
         }
 
         public void EditAppointmentCommandMapping()
         {
             CreateMap<Appointment, EditAppointmentDTO>().
                 ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id)).
-                ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Note)).
-                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.Date)).
-                ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status)).ReverseMap();
+                ForMember(dest => dest.Note, opt => opt.MapFrom(src => src.Description)).
+                ForMember(dest => dest.AppointmentAt, opt => opt.MapFrom(src => src.Date));
         }
     }
 }

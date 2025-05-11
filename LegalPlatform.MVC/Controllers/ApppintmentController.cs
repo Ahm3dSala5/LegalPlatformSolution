@@ -1,10 +1,8 @@
-﻿using System.Security.Cryptography;
-using Graduation_Project_Store.API.Bases;
+﻿using Graduation_Project_Store.API.Bases;
 using LegalPlatform.Core.Features.Appointments.Command.Request;
 using LegalPlatform.Core.Features.Appointments.Query.Request;
 using LegalPlatform.Infrastructure.Domain.DTOs.NewFolder;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace LegalPlatform.API.Controllers
 {
@@ -16,7 +14,7 @@ namespace LegalPlatform.API.Controllers
         public async Task<IActionResult> Start(MakeAppointmentDTO appointment)
         {
             var startCommand = await Mediator.Send(new StartAppintmentCommand(appointment));
-            return HandledResult(startCommand);
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet("Get/{Id}")]

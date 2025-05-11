@@ -12,6 +12,7 @@ namespace LegalPlatform.Infrastructure.Persistence.Configurations.Security
             builder.ToTable("User");
             builder.HasKey(x => x.Id);
 
+
             builder.HasMany<IdentityUserClaim<Guid>>()
                    .WithOne()
                    .HasForeignKey(uc => uc.UserId)

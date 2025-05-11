@@ -34,12 +34,22 @@ namespace LegalPlatform.MVC.Controllers
             return View();
         }
 
-        public IActionResult ContactUs()
+        public IActionResult Contact()
         {
             return View();
         }
 
         public IActionResult Community()
+        {
+            return View();
+        }
+
+        public IActionResult OpenLoginPage()
+        {
+            return View();
+        }
+
+        public IActionResult MakeAppointment()
         {
             return View();
         }

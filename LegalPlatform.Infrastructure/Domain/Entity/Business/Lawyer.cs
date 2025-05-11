@@ -20,5 +20,7 @@ namespace LegalPlatform.Infrastructure.Domain.Entity.Business
 
         public Guid UserId { set; get; }
         public LegalUser User { get; set; } // Navigation property to the associated LegalUser
+
+        public ICollection<Appointment> Appointments { set; get; } = new List<Appointment>();
     }
 }

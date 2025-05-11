@@ -20,7 +20,7 @@
     <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="~/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -70,19 +70,28 @@
 
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="about.html" class="nav-item nav-link">About</a>
-                            <a href="team.html" class="nav-item nav-link active">Attorneys</a>
+                            <a asp-controller="Home" asp-action="index" class="nav-item nav-link">Home</a>
+                            <a asp-controller="Home" asp-action="About" class="nav-item nav-link">About</a>
+                            <a asp-controller="Home" asp-action="Lawers" class="nav-item nav-link">Lawers</a>
                             <div class="nav-item dropdown">
-                                <a href="blog.html" class="nav-item nav-link">Community</a>
-
+                                <a asp-controller="Home" asp-action="Community" class="nav-item nav-link">Community</a>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
                         </div>
+
                         <div class="ml-auto">
-                            <a class="btn" href="authentication.html">login</a>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <span class="nav-item nav-link">Welcome, @User.Identity.Name!</span>
+                                <a class="btn nav-item nav-link" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                            }
+                            else
+                            {
+                                <a class="btn nav-item nav-link" asp-controller="Home" asp-action="OpenLoginPage">Login</a>
+                            }
                         </div>
                     </div>
+
                 </nav>
             </div>
         </div>
@@ -93,7 +102,7 @@
                 <div class="row align-items-center">
                     <div class="col-lg-5 col-md-6">
                         <div class="about-img">
-                            <img src="img/about.jpg" alt="Image">
+                            <img src="~/img/about.jpg" alt="Image">
                         </div>
                     </div>
                     <div class="col-lg-7 col-md-6">
@@ -124,7 +133,7 @@
                     <div class="col-lg-3 col-md-6">
                         <div class="team-item">
                             <div class="team-img">
-                                <img src="img/team-1.jpg" alt="Team Image">
+                                <img src="~/img/team-1.jpg" alt="Team Image">
                             </div>
                             <div class="team-text">
                                 <h2>Adam Phillips</h2>
@@ -135,14 +144,14 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="team-item">
                             <div class="team-img">
-                                <img src="img/team-2.jpg" alt="Team Image">
+                                <img src="~/img/team-2.jpg" alt="Team Image">
                             </div>
                             <div class="team-text">
                                 <h2>Dylan Adams</h2>
@@ -153,14 +162,14 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="team-item">
                             <div class="team-img">
-                                <img src="img/team-3.jpg" alt="Team Image">
+                                <img src="~/img/team-3.jpg" alt="Team Image">
                             </div>
                             <div class="team-text">
                                 <h2>Gloria Edwards</h2>
@@ -171,14 +180,14 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                <a class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="team-item">
                             <div class="team-img">
-                                <img src="img/team-4.jpg" alt="Team Image">
+                                <img src="~/img/team-4.jpg" alt="Team Image">
                             </div>
                             <div class="team-text">
                                 <h2>Josh Dunn</h2>
@@ -189,7 +198,7 @@
                                     <a class="social-li" href=""><i class="fab fa-linkedin-in"></i></a>
                                     <a class="social-in" href=""><i class="fab fa-instagram"></i></a>
                                 </div>
-                                <a href="appointment.html" class="appointment-btn">Make an Appointment</a>
+                                 <a  class="appointment-btn" asp-controller="Home" asp-action="MakeAppointment">Make an Appointment</a>
                             </div>
                         </div>
                     </div>
@@ -297,6 +306,12 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
 

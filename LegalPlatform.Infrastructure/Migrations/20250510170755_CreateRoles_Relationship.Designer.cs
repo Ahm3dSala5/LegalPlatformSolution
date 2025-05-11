@@ -4,6 +4,7 @@ using LegalPlatform.Infrastructure.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LegalPlatform.Infrastructure.Migrations
 {
     [DbContext(typeof(LegalPlatformContext))]
-    partial class LegalPlatformContextModelSnapshot : ModelSnapshot
+    [Migration("20250510170755_CreateRoles_Relationship")]
+    partial class CreateRoles_Relationship
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,33 +31,41 @@ namespace LegalPlatform.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ClientId")
-                        .IsRequired()
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Description")
-                        .IsRequired()
+                    b.Property<string>("Note")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid?>("LawerId")
-                        .IsRequired()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
 
-                    b.Property<Guid?>("LegalUserId")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("LawerId");
-
-                    b.HasIndex("LegalUserId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Appointment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("cd7e56aa-80bb-41b1-bdf9-d3b9d2dcd83f"),
+                            Date = new DateTime(2025, 5, 17, 17, 7, 52, 959, DateTimeKind.Utc).AddTicks(2826),
+                            Note = "Consultation for legal advice.",
+                            Status = 0,
+                            UserId = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59")
+                        },
+                        new
+                        {
+                            Id = new Guid("cebdc156-e9a3-4384-b8c8-ee1e80a426ca"),
+                            Date = new DateTime(2025, 5, 13, 17, 7, 52, 959, DateTimeKind.Utc).AddTicks(2831),
+                            Note = "Consultation for legal advice.",
+                            Status = 2,
+                            UserId = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Articale", b =>
@@ -82,6 +93,24 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Articale", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a7acbc2d-4817-47f5-8f20-5cb8c716aea2"),
+                            Content = "Content of legal insights article.",
+                            Title = "Legal Insights",
+                            UploadedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59")
+                        },
+                        new
+                        {
+                            Id = new Guid("3f551cd6-4e22-427a-b175-77e760c30716"),
+                            Content = "Content of legal policies article.",
+                            Title = "Understanding Legal Policies",
+                            UploadedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Client", b =>
@@ -142,6 +171,24 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Comment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("785bd076-4cee-4bbc-a025-36ed9d524f58"),
+                            AddedAt = new DateTime(2025, 5, 10, 17, 7, 52, 959, DateTimeKind.Utc).AddTicks(2741),
+                            ArticaleId = new Guid("a7acbc2d-4817-47f5-8f20-5cb8c716aea2"),
+                            Text = "Great article!",
+                            UserId = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59")
+                        },
+                        new
+                        {
+                            Id = new Guid("2d69fb0c-1d70-4b9d-9a7a-7285708f8fe9"),
+                            AddedAt = new DateTime(2025, 5, 10, 17, 7, 52, 959, DateTimeKind.Utc).AddTicks(2786),
+                            ArticaleId = new Guid("3f551cd6-4e22-427a-b175-77e760c30716"),
+                            Text = "Very informative!",
+                            UserId = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Lawyer", b =>
@@ -222,6 +269,26 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Payment", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("8ad2b0a6-ec75-4f93-a573-8801d65dd52b"),
+                            Amount = 250.00m,
+                            PaymentDate = new DateTime(2025, 5, 10, 17, 7, 52, 959, DateTimeKind.Utc).AddTicks(2792),
+                            Reciever = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c"),
+                            Sender = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59"),
+                            UserId = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59")
+                        },
+                        new
+                        {
+                            Id = new Guid("ff1aca82-3035-49bd-bd78-8a6cee7771ea"),
+                            Amount = 100.00m,
+                            PaymentDate = new DateTime(2025, 5, 5, 17, 7, 52, 959, DateTimeKind.Utc).AddTicks(2809),
+                            Reciever = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59"),
+                            Sender = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c"),
+                            UserId = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c")
+                        });
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalRole", b =>
@@ -254,6 +321,7 @@ namespace LegalPlatform.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Balance")
@@ -304,6 +372,42 @@ namespace LegalPlatform.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("User", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0a848e9d-590f-4510-9f71-874f4380eb59"),
+                            AccessFailedCount = 0,
+                            Address = "123 Main St, New York, NY",
+                            Balance = 500.75m,
+                            ConcurrencyStamp = "039bfc19-6543-4e4e-8d56-d3e3d93ec034",
+                            Email = "john.doe@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JOHN.DOE@EXAMPLE.COM",
+                            NormalizedUserName = "JOHN_DOE",
+                            PhoneNumber = "1234567890",
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = false,
+                            UserName = "john_doe"
+                        },
+                        new
+                        {
+                            Id = new Guid("a81b0008-d046-4696-a09f-c9812ae7760c"),
+                            AccessFailedCount = 0,
+                            Address = "456 Elm St, Los Angeles, CA",
+                            Balance = 1200.50m,
+                            ConcurrencyStamp = "1cd87fed-895e-423c-b11d-369e16ce449f",
+                            Email = "jane.smith@example.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "JANE.SMITH@EXAMPLE.COM",
+                            NormalizedUserName = "JANE_SMITH",
+                            PhoneNumber = "0987654321",
+                            PhoneNumberConfirmed = true,
+                            TwoFactorEnabled = false,
+                            UserName = "jane_smith"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -425,25 +529,13 @@ namespace LegalPlatform.Infrastructure.Migrations
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Appointment", b =>
                 {
-                    b.HasOne("LegalPlatform.Infrastructure.Domain.Entity.Business.Client", "Client")
+                    b.HasOne("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalUser", "User")
                         .WithMany("Appointments")
-                        .HasForeignKey("ClientId")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("LegalPlatform.Infrastructure.Domain.Entity.Business.Lawyer", "Lawer")
-                        .WithMany("Appointments")
-                        .HasForeignKey("LawerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalUser", null)
-                        .WithMany("Appointments")
-                        .HasForeignKey("LegalUserId");
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Lawer");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Articale", b =>
@@ -579,16 +671,6 @@ namespace LegalPlatform.Infrastructure.Migrations
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Articale", b =>
                 {
                     b.Navigation("Comments");
-                });
-
-            modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Client", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Business.Lawyer", b =>
-                {
-                    b.Navigation("Appointments");
                 });
 
             modelBuilder.Entity("LegalPlatform.Infrastructure.Domain.Entity.Security.LegalUser", b =>

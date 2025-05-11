@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Kanun - Law Firm Website Template</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Law Firm Website Template" name="keywords">
+    <meta content="Law Firm Website Template" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@1,600;1,700;1,800&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="~/css/style.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url(img/carousel-2.jpg);
+            background-size: cover;
+            background-repeat: repeat;
+            background-attachment: scroll;
+            text-align: center;
+        }
+
+        .appoint {
+            text-align: center;
+        }
+
+        input, textarea, select {
+            width: 50%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 50%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            button:hover {
+                background-color: #aa9166;
+            }
+
+        .payment-details {
+            display: none;
+        }
+
+        #paymentMethod {
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <!-- Top Bar Start -->
+        <div class="top-bar">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3">
+                        <div class="logo">
+                            <a href="index.html">
+                                <h1>Legal</h1>
+                                <!-- <img src="img/logo.jpg" alt="Logo"> -->
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-9">
+                        <div class="top-bar-right">
+                            <div class="text">
+                                <h2>Available</h2>
+                                <p>Any time</p>
+                            </div>
+                            <div class="text">
+                                <h2>+123 456 7890</h2>
+                                <p>Call Us For Free Consultation</p>
+                            </div>
+                            <div class="social">
+                                <a href=""><i class="fab fa-twitter"></i></a>
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                <a href=""><i class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Top Bar End -->
+        <!-- Nav Bar Start -->
+        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+            <div class="navbar-nav mr-auto">
+                <a asp-controller="Home" asp-action="index" class="nav-item nav-link">Home</a>
+                <a asp-controller="Home" asp-action="About" class="nav-item nav-link">About</a>
+                <a asp-controller="Home" asp-action="Lawers" class="nav-item nav-link">Lawers</a>
+                <div class="nav-item dropdown">
+                    <a asp-controller="Home" asp-action="Community" class="nav-item nav-link">Community</a>
+                </div>
+                <a asp-controller="Home" asp-action="Contact" class="nav-item nav-link">Contact</a>
+            </div>
+
+            <div class="ml-auto">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <span class="nav-item nav-link">Welcome, @User.Identity.Name!</span>
+                    <a class="btn nav-item nav-link" asp-controller="Authentication" asp-action="Logout">Logout</a>
+                }
+                else
+                {
+                    <a class="btn nav-item nav-link" asp-controller="Home" asp-action="OpenLoginPage">Login</a>
+                }
+            </div>
+        </div>
+
+            </div>
+            </nav>
+        </div>
+    </div>
+    <!-- Nav Bar End -->
+    <!--appointment-->
+    <div class="form">
+        <h2 class="appoint">Book an Appointment</h2>
+        <form id="appointmentForm" asp-controller="Apppintment" asp-action="Start" method="post">
+            <input type="text" name="LawerName" placeholder="Lawyer Name" required />
+            <input type="text" name="ClientName" placeholder="Full Name" required />
+            <input type="datetime-local" name="Date" required />
+            <textarea name="Description" placeholder="Describe your case" rows="4" required></textarea>
+
+            <!-- Optional Payment Sections (not part of DTO) -->
+            <div id="creditCardDetails" class="payment-details">
+                <input type="text" placeholder="Card Number" />
+                <input type="text" placeholder="Expiry Date (MM/YY)" />
+                <input type="text" placeholder="CVV" />
+            </div>
+
+            <div id="paypalDetails" class="payment-details">
+                <input type="email" placeholder="PayPal Email" />
+            </div>
+
+            <div id="bankTransferDetails" class="payment-details">
+                <input type="text" placeholder="Bank Account Number" />
+                <input type="text" placeholder="Bank Name" />
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        function showPaymentDetails() {
+            var paymentMethod = document.getElementById("paymentMethod").value;
+            document.getElementById("creditCardDetails").style.display = (paymentMethod === "credit_card") ? "block" : "none";
+            document.getElementById("paypalDetails").style.display = (paymentMethod === "paypal") ? "block" : "none";
+            document.getElementById("bankTransferDetails").style.display = (paymentMethod === "bank_transfer") ? "block" : "none";
+        }
+    </script>
+
+    <script src="js/main.js"></script>
+    <div class="wrapper">
+        @RenderBody()
+    </div>
+
+    <script src="~/js/main.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

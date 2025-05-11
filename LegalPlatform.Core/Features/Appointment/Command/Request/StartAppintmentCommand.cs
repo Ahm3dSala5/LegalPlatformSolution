@@ -11,11 +11,11 @@ namespace LegalPlatform.Core.Features.Appointments.Command.Request
 {
     public class StartAppintmentCommand : IRequest<Result<string>>
     {
-        public StartAppintmentCommand(StartAppointmentDTO appointment)
+        public StartAppintmentCommand(MakeAppointmentDTO appointment)
         {
             Appointment = appointment;
         }
 
-        public StartAppointmentDTO Appointment { get; }
+        public MakeAppointmentDTO Appointment { get; }
     }
 }

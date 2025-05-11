@@ -7,10 +7,11 @@ using LegalPlatform.Infrastructure.Domain.Enum;
 
 namespace LegalPlatform.Infrastructure.Domain.DTOs.NewFolder
 {
-    public class StartAppointmentDTO
+    public class MakeAppointmentDTO
     {
-        public DateTime AppointmentAt { set; get; }
-        public AppointmentStatus Status { set; get; }
-        public string? Note { set; get; }
+        public string LawerName { set; get; }
+        public string ClientName { set; get; }
+        public DateTime Date { set; get; }
+        public string Description { set; get; }
     }
 }
